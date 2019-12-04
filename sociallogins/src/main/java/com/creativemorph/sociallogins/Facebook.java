@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -84,7 +86,34 @@ public class Facebook {
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-                listener.onFacebookResponseListener(object, false);
+
+                try {
+
+                    JSONObject res = new JSONObject();
+
+                    String token = AccessToken.getCurrentAccessToken().getToken();
+                    String id = object.getString("id");
+                    String first_name =  !object.isNull("first_name") ? object.getString("first_name"): "";
+                    String last_name = !object.isNull("last_name" ) ? object.getString("last_name"): "";
+                    String email = object.getString("email");
+                    String birthday = !object.isNull( "birthday" ) ? object.getString("birthday") : "";
+                    String gender = !object.isNull( "gender" ) ? object.getString("gender") : "";
+                    String photo = "https://graph.facebook.com/" + id + "/picture?type=normal";
+
+                    res.put("token", token);
+                    res.put("id", id);
+                    res.put("first_name", first_name);
+                    res.put("last_name", last_name);
+                    res.put("email", email);
+                    res.put("birthday", birthday);
+                    res.put("gender", gender);
+                    res.put("photo", photo);
+
+                    listener.onFacebookResponseListener(res, false);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         //Here we put the requested fields to be returned from the JSONObject
