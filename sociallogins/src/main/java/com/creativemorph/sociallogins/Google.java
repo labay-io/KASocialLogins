@@ -41,6 +41,7 @@ public class Google implements GoogleApiClient.OnConnectionFailedListener {
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(mContext.getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
 

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="facebook_app_id">apiKey</string>
+    <string name="facebook_app_id">199945756757016</string>
     <string name="fb_login_protocol_scheme">fbkey</string>
+    <string name="server_client_id">175935518795-qbs8a5dok87iqhlcp54t9b64a8t4buhm.apps.googleusercontent.com</string>
+
+
 </resources>
