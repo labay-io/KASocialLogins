@@ -97,7 +97,7 @@ public class Google implements GoogleApiClient.OnConnectionFailedListener {
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Toast.makeText(mContext, "" + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "" + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("id", acct.getId());
@@ -109,9 +109,12 @@ public class Google implements GoogleApiClient.OnConnectionFailedListener {
                 jsonObject.put("idToken", acct.getIdToken());
 
             } catch (JSONException e) {
+                generateError(mContext.getString(R.string.general_error));
                 e.printStackTrace();
             }
             listener.onGoogleResponseListener(jsonObject, false);
+        } else {
+            generateError(mContext.getString(R.string.general_error));
         }
     }
 
